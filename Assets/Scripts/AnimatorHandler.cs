@@ -1,20 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace DS
 {
     public class AnimatorHandler : MonoBehaviour
     {
+        PlayerManager playerManager;
         public Animator anim;
-        public InputHandler inputHandler;
-        public PlayerLocomotion playerLocomotion;
+        InputHandler inputHandler;
+        PlayerLocomotion playerLocomotion;
         int vertical;
         int horizontal;
         public bool canRotate;
 
         public void Initialize()
         {
+            playerManager = GetComponentInParent<PlayerManager>();
             anim = GetComponent<Animator>();
             inputHandler = GetComponentInParent<InputHandler>();
             playerLocomotion = GetComponentInParent<PlayerLocomotion>();
@@ -22,7 +25,7 @@ namespace DS
             horizontal = Animator.StringToHash("Horizontal");
         }
 
-        public void UpdateAnimatorValues(float verticalMovement, float horizontalMovement)
+        public void UpdateAnimatorValues(float verticalMovement, float horizontalMovement, bool isSprinting)
         {
             #region Vertical
             float v = 0;
@@ -74,6 +77,12 @@ namespace DS
             }
             #endregion
 
+            if(isSprinting) 
+            {
+                v = 2;
+                h = horizontalMovement;
+            }
+
             anim.SetFloat(vertical, v, 0.1f, Time.deltaTime);
             anim.SetFloat(horizontal, h, 0.1f, Time.deltaTime);
         }
@@ -97,7 +106,7 @@ namespace DS
 
         private void OnAnimatorMove()
         {
-            if (inputHandler.isBusy == false)
+            if (playerManager.isBusy == false)
                 return;
 
             float delta = Time.deltaTime;
