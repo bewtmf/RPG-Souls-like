@@ -60,7 +60,8 @@ namespace DS
         {
             inputHandler.rollFlag = false;
             inputHandler.sprintFlag = false;
-            isSprinting = inputHandler.b_Input;
+            inputHandler.la_Input = false;
+            inputHandler.ha_Input = false;
 
             if(isInAir)
             {
