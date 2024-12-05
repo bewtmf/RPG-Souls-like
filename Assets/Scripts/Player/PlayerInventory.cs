@@ -16,8 +16,8 @@ namespace DS
         public WeaponItem[] weaponsInRightHandSlots = new WeaponItem[1];
         public WeaponItem[] weaponsInLeftHandSlots = new WeaponItem[1];
 
-        public int currentRightWeaponIndex = -1;
-        public int currentLeftWeaponIndex = -1;
+        public int currentRightWeaponIndex = 0;
+        public int currentLeftWeaponIndex = 0;
 
         public List<WeaponItem> weaponsInventory;
 
@@ -29,8 +29,10 @@ namespace DS
 
         private void Start()
         {
-            rightWeapon = unarmedWeapon;
-            leftWeapon = unarmedWeapon;
+            rightWeapon = weaponsInRightHandSlots[0];
+            leftWeapon = weaponsInLeftHandSlots[0];
+            weaponSlotManager.LoadWeaponOnSlot(rightWeapon, false);
+            weaponSlotManager.LoadWeaponOnSlot(leftWeapon, true);
         }
 
         public void ChangeRightWeapon()

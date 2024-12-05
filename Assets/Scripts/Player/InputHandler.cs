@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace DS
@@ -14,6 +15,7 @@ namespace DS
 
         public bool b_Input;
         public bool a_Input;
+        public bool y_Input;
         public bool jump_Input;
         public bool inventory_Input;
         public bool lockOn_Input;
@@ -28,6 +30,7 @@ namespace DS
         public bool d_Pad_Right;
 
         public bool rollFlag;
+        public bool twoHandFlag;
         public bool sprintFlag;
         public float rollInputTimer;
         public bool comboFlag;
@@ -39,6 +42,7 @@ namespace DS
         PlayerAttacker playerAttacker;
         PlayerInventory playerInventory;
         PlayerManager playerManager;
+        WeaponSlotManager weaponSlotManager;
         CameraHandler cameraHandler;
         UIManager uiManager;
 
@@ -52,6 +56,7 @@ namespace DS
             playerManager = GetComponent<PlayerManager>();
             cameraHandler = FindObjectOfType<CameraHandler>();
             uiManager = FindObjectOfType<UIManager>();
+            weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
         }
 
         public void OnEnable()
@@ -71,10 +76,16 @@ namespace DS
                 inputActions.PlayerActions.LockOn.performed += i => lockOn_Input = true;
                 inputActions.PlayerMovement.LockOnTargetRight.performed += i => right_Stick_Right_Input = true;
                 inputActions.PlayerMovement.LockOnTargetLeft.performed += i => right_Stick_Left_Input = true;
+                inputActions.PlayerActions.Y.performed += i => y_Input = true;
 
             }
 
             inputActions.Enable();
+        }
+
+        private void Y_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+        {
+            throw new System.NotImplementedException();
         }
 
         private void OnDisable()
@@ -84,15 +95,16 @@ namespace DS
 
         public void TickInput(float delta)
         {
-            MoveInput(delta);
+            HandleMoveInput(delta);
             HandleRollInput(delta);
             HandleAttackInput(delta);
             HandleQuickSlotsInput();
             HandleInventoryInput();
             HandleLockOnInput();
+            HandleTwoHandInput();
         }
 
-        private void MoveInput(float delta)
+        private void HandleMoveInput(float delta)
         {
             horizontal = movementInput.x;
             vertical = movementInput.y;
@@ -225,8 +237,29 @@ namespace DS
                     cameraHandler.currentLockOnTarget = cameraHandler.rightLockTarget;
                 }
             }
+
+            cameraHandler.SetCameraHeight();
+
         }
 
+        private void HandleTwoHandInput()
+        {
+            if (y_Input)
+            {
+                y_Input = false;
+                twoHandFlag = !twoHandFlag;
+
+                if (twoHandFlag)
+                {
+                    weaponSlotManager.LoadWeaponOnSlot(playerInventory.rightWeapon, false);
+                }
+                else
+                {
+                    weaponSlotManager.LoadWeaponOnSlot(playerInventory.rightWeapon, false);
+                    weaponSlotManager.LoadWeaponOnSlot(playerInventory.leftWeapon, true);
+                }
+            }
+        }
     }
 }
 
