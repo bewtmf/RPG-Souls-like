@@ -29,6 +29,9 @@ namespace DS
         private void Awake()
         {
             cameraHandler = FindObjectOfType<CameraHandler>();
+
+            WorldSaveGameManager.instance.player = this;
+            
         }
 
         void Start()
@@ -126,6 +129,18 @@ namespace DS
                 }
             }
 
+        }
+
+        public void SaveCharacterDataToCurrentSaveData(ref CharacterSaveData currentCharacterSaveData)
+        {
+            currentCharacterSaveData.xPosition = transform.position.x;
+            currentCharacterSaveData.yPosition = transform.position.y;
+            currentCharacterSaveData.zPosition = transform.position.z;
+        }
+
+        public void LoadCharacterDataFromCurrentCharacterSaveData(ref CharacterSaveData currentCharacterSaveData)
+        {
+            transform.position = new Vector3(currentCharacterSaveData.xPosition, currentCharacterSaveData.yPosition, currentCharacterSaveData.zPosition);
         }
     }
 }
