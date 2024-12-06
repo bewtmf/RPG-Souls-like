@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 942fca19a5bf7424db833af56a8e1708, type: 3}
   m_Name: Unarmed
   m_EditorClassIdentifier: 
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 80c79b2d846d1674ea0351e91a65aa91, type: 3}
   itemName: 
   modelPrefab: {fileID: 7557387874802434473, guid: 63083413516404248b316da313a6fd05, type: 3}
   isUnarmed: 1
   right_hand_idle: Right Arm Empty
   left_hand_idle: Left Arm Empty
+  th_idle: 
   OH_Light_Attack_1: straight_sword_main_light_attack_01
   OH_Light_Attack_2: straight_sword_main_light_attack_02
   OH_Heavy_Attack_1: straight_sword_main_charged_attack_01
