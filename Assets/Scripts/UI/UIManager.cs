@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -40,22 +40,43 @@ namespace DS
         public void UpdateUI()
         {
             #region Weapon Inventory Slots
-            for (int i = 0; i < weaponInventorySlots.Length; i++)
+
+            for (int i = 0; i < playerInventory.weaponsInventory.Count; i++)
             {
-                if (i < playerInventory.weaponsInventory.Count)
+                // Nếu số lượng slot chưa đủ, thêm mới
+                if (weaponInventorySlots.Length < playerInventory.weaponsInventory.Count)
                 {
-                    if (weaponInventorySlots.Length < playerInventory.weaponsInventory.Count)
-                    {
-                        Instantiate(weaponInventorySlotPrefab, weaponInventorySlotsParent);
-                        weaponInventorySlots = weaponInventorySlotsParent.GetComponentsInChildren<WeaponInventorySlot>();
-                    }
-                    weaponInventorySlots[i].AddItem(playerInventory.weaponsInventory[i]);
+                    Instantiate(weaponInventorySlotPrefab, weaponInventorySlotsParent);
+                    weaponInventorySlots = weaponInventorySlotsParent.GetComponentsInChildren<WeaponInventorySlot>();
                 }
-                else
-                {
-                    weaponInventorySlots[i].ClearInventorySlot();
-                }
+
+                // Thêm item vào slot
+                weaponInventorySlots[i].AddItem(playerInventory.weaponsInventory[i]);
             }
+
+            // Dọn dẹp các slot thừa
+            for (int i = playerInventory.weaponsInventory.Count; i < weaponInventorySlots.Length; i++)
+            {
+                weaponInventorySlots[i].ClearInventorySlot();
+            }
+
+
+            //for (int i = 0; i < weaponInventorySlots.Length; i++)
+            //{
+            //    if (i < playerInventory.weaponsInventory.Count)
+            //    {
+            //        if (weaponInventorySlots.Length < playerInventory.weaponsInventory.Count)
+            //        {
+            //            Instantiate(weaponInventorySlotPrefab, weaponInventorySlotsParent);
+            //            weaponInventorySlots = weaponInventorySlotsParent.GetComponentsInChildren<WeaponInventorySlot>();
+            //        }
+            //        weaponInventorySlots[i].AddItem(playerInventory.weaponsInventory[i]);
+            //    }
+            //    else
+            //    {
+            //        weaponInventorySlots[i].ClearInventorySlot();
+            //    }
+            //}
             #endregion
         }
 
