@@ -22,6 +22,8 @@ MonoBehaviour:
   OH_Light_Attack_1: straight_sword_main_light_attack_01
   OH_Light_Attack_2: straight_sword_main_light_attack_02
   OH_Heavy_Attack_1: straight_sword_main_charged_attack_01
+  TH_Light_Attack_01: straight_sword_th_light_attack_01
+  TH_Light_Attack_02: straight_sword_th_light_attack_02
   baseStamina: 20
   lightAttackMultiplier: 1
   heavyAttackMultiplier: 2
