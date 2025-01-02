@@ -37,10 +37,73 @@ namespace DS
             equipmentWindowUI.LoadWeaponsOnEquipmentScreen(playerInventory);
         }
 
+        //public void UpdateUI()
+        //{
+        //    #region Weapon Inventory Slots
+
+        //    for (int i = 0; i < playerInventory.weaponsInventory.Count; i++)
+        //    {
+        //        // Nếu số lượng slot chưa đủ, thêm mới
+        //        if (weaponInventorySlots.Length < playerInventory.weaponsInventory.Count)
+        //        {
+        //            Instantiate(weaponInventorySlotPrefab, weaponInventorySlotsParent);
+        //            weaponInventorySlots = weaponInventorySlotsParent.GetComponentsInChildren<WeaponInventorySlot>();
+        //        }
+
+        //        // Thêm item vào slot
+        //        weaponInventorySlots[i].AddItem(playerInventory.weaponsInventory[i]);
+        //    }
+
+        //    // Dọn dẹp các slot thừa
+        //    for (int i = playerInventory.weaponsInventory.Count; i < weaponInventorySlots.Length; i++)
+        //    {
+        //        weaponInventorySlots[i].ClearInventorySlot();
+        //    }
+
+
+        //    //for (int i = 0; i < weaponInventorySlots.Length; i++)
+        //    //{
+        //    //    if (i < playerInventory.weaponsInventory.Count)
+        //    //    {
+        //    //        if (weaponInventorySlots.Length < playerInventory.weaponsInventory.Count)
+        //    //        {
+        //    //            Instantiate(weaponInventorySlotPrefab, weaponInventorySlotsParent);
+        //    //            weaponInventorySlots = weaponInventorySlotsParent.GetComponentsInChildren<WeaponInventorySlot>();
+        //    //        }
+        //    //        weaponInventorySlots[i].AddItem(playerInventory.weaponsInventory[i]);
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        weaponInventorySlots[i].ClearInventorySlot();
+        //    //    }
+        //    //}
+        //    #endregion
+        //}
+
         public void UpdateUI()
         {
-            #region Weapon Inventory Slots
+            // Kiểm tra playerInventory
+            if (playerInventory == null)
+            {
+                Debug.LogError("playerInventory is null! Please assign it in the inspector or initialize it.");
+                return;
+            }
 
+            // Kiểm tra weaponInventorySlotsParent
+            if (weaponInventorySlotsParent == null)
+            {
+                Debug.LogError("weaponInventorySlotsParent is null! Please assign it in the inspector.");
+                return;
+            }
+
+            // Kiểm tra weaponInventorySlotPrefab
+            if (weaponInventorySlotPrefab == null)
+            {
+                Debug.LogError("weaponInventorySlotPrefab is null! Please assign it in the inspector.");
+                return;
+            }
+
+            // Weapon Inventory Slots
             for (int i = 0; i < playerInventory.weaponsInventory.Count; i++)
             {
                 // Nếu số lượng slot chưa đủ, thêm mới
@@ -50,35 +113,23 @@ namespace DS
                     weaponInventorySlots = weaponInventorySlotsParent.GetComponentsInChildren<WeaponInventorySlot>();
                 }
 
-                // Thêm item vào slot
-                weaponInventorySlots[i].AddItem(playerInventory.weaponsInventory[i]);
+                // Kiểm tra weaponInventorySlots[i] trước khi gọi AddItem
+                if (weaponInventorySlots[i] != null)
+                {
+                    weaponInventorySlots[i].AddItem(playerInventory.weaponsInventory[i]);
+                }
             }
 
             // Dọn dẹp các slot thừa
             for (int i = playerInventory.weaponsInventory.Count; i < weaponInventorySlots.Length; i++)
             {
-                weaponInventorySlots[i].ClearInventorySlot();
+                if (weaponInventorySlots[i] != null)
+                {
+                    weaponInventorySlots[i].ClearInventorySlot();
+                }
             }
-
-
-            //for (int i = 0; i < weaponInventorySlots.Length; i++)
-            //{
-            //    if (i < playerInventory.weaponsInventory.Count)
-            //    {
-            //        if (weaponInventorySlots.Length < playerInventory.weaponsInventory.Count)
-            //        {
-            //            Instantiate(weaponInventorySlotPrefab, weaponInventorySlotsParent);
-            //            weaponInventorySlots = weaponInventorySlotsParent.GetComponentsInChildren<WeaponInventorySlot>();
-            //        }
-            //        weaponInventorySlots[i].AddItem(playerInventory.weaponsInventory[i]);
-            //    }
-            //    else
-            //    {
-            //        weaponInventorySlots[i].ClearInventorySlot();
-            //    }
-            //}
-            #endregion
         }
+
 
         public void OpenSelectWindow()
         {

@@ -7,10 +7,14 @@ namespace DS
     public class EnemyStats : CharacterStats
     {
         Animator animator;
+        EnemyAnimatorManager enemyAnimatorManager;
+
+        public int soulAwardedOnDeath = 30;
 
         private void Awake()
         {
             animator = GetComponentInChildren<Animator>();
+            enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
         }
 
         private void Start()
@@ -25,16 +29,42 @@ namespace DS
             return maxHealth;
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamageNoAnimation(int damage)
         {
             currentHealth -= damage;
 
-            animator.Play("Damaged");
+            if (currentHealth <= 0)
+            {
+                currentHealth = 0;
+                isDead = true;
+            }
+        }
+
+        public void TakeDamage(int damage)
+        {
+            if (isDead)
+                return;
+
+            currentHealth -= damage;
+
+            enemyAnimatorManager.PlayTargetAnimation("Damaged", true);
 
             if(currentHealth <= 0)
             {
-                currentHealth = 0;
-                animator.Play("Dead");
+                HandleDead();
+            }
+        }
+
+        public void HandleDead()
+        {
+            currentHealth = 0;
+            enemyAnimatorManager.PlayTargetAnimation("Dead", true);
+            isDead = true;
+            PlayerStats playerStats = FindObjectOfType<PlayerStats>();
+
+            if (playerStats != null)
+            {
+                playerStats.AddSouls(soulAwardedOnDeath);
             }
         }
     }

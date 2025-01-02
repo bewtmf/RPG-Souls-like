@@ -20,7 +20,6 @@ namespace DS
 
         public bool isPerformingAction;
         public bool isBusy;
-        public float distanceFromTarget;
         public float rotationSpeed = 15;
         public float maximumAttackRange = 1.5f;
 
@@ -28,7 +27,6 @@ namespace DS
         public float detectionRadius = 20;
         public float maximumDetectionAngle = 50;
         public float minimumDetectionAngle = -50;
-        public float viewableAngle;
         public float currentRecoveryTime = 0;
 
         private void Awake()
@@ -36,14 +34,16 @@ namespace DS
             enemyLocomotionManager = GetComponent<EnemyLocomotionManager>();
             enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
             enemyStats = GetComponent<EnemyStats>();
-            navmeshAgent = GetComponentInChildren<NavMeshAgent>();
             enemyRigidbody = GetComponent<Rigidbody>();
+            backStabCollider = GetComponentInChildren<BackStabCollider>();
+            navmeshAgent = GetComponentInChildren<NavMeshAgent>();
+            navmeshAgent.enabled = false;
+
         }
 
         private void Start()
         {
             enemyRigidbody.isKinematic = false;
-            navmeshAgent.enabled = false;
         }
 
         private void Update()
@@ -51,6 +51,7 @@ namespace DS
             HandleRecoveryTimer();
             
             isBusy = enemyAnimatorManager.anim.GetBool("isBusy");
+            enemyAnimatorManager.anim.SetBool("isDead", enemyStats.isDead);
         }
 
         private void FixedUpdate()

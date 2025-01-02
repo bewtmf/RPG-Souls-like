@@ -8,11 +8,12 @@ namespace DS
     public class AnimatorHandler : AnimatorManager
     {
         PlayerManager playerManager;
+        PlayerStats playerStats;
         InputHandler inputHandler;
         PlayerLocomotion playerLocomotion;
         int vertical;
         int horizontal;
-        public bool canRotate;
+
 
         public void Initialize()
         {
@@ -20,6 +21,7 @@ namespace DS
             anim = GetComponent<Animator>();
             inputHandler = GetComponentInParent<InputHandler>();
             playerLocomotion = GetComponentInParent<PlayerLocomotion>();
+            playerStats = GetComponentInParent<PlayerStats>();
             vertical = Animator.StringToHash("Vertical");
             horizontal = Animator.StringToHash("Horizontal");
         }
@@ -89,12 +91,12 @@ namespace DS
 
         public void CanRotate()
         {
-            canRotate = true;
+            anim.SetBool("canRotate", true);
         }
 
         public void StopRotation()
         {
-            canRotate = false;
+            anim.SetBool("canRotate", false);
         }
 
         private void OnAnimatorMove()
@@ -119,6 +121,22 @@ namespace DS
         public void DisableCombo()
         {
             anim.SetBool("canDoCombo", false);
+        }
+
+        public void EnableIsInvulnerable()
+        {
+            anim.SetBool("isInvulnerable", true);
+        }
+
+        public void DisableIsInvulnerable()
+        {
+            anim.SetBool("isInvulnerable", false);
+        }
+
+        public override void TakeCriticalDamageAnimationEvent()
+        {
+            playerStats.TakeDamageNoAnimation(playerManager.pendingCriticalDamage);
+            playerManager.pendingCriticalDamage = 0;
         }
     }
 

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace DS
 {
-    public class WeaponPickUpp : Interactable
+    public class WeaponPickUp : Interactable
     {
         public WeaponItem weapon;
 

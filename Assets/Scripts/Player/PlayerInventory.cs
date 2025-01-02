@@ -8,6 +8,7 @@ namespace DS
     {
         WeaponSlotManager weaponSlotManager;
 
+        public SpellItem currentSpell;
         public WeaponItem rightWeapon;
         public WeaponItem leftWeapon;
 
@@ -37,7 +38,7 @@ namespace DS
 
         public void ChangeRightWeapon()
         {
-            currentRightWeaponIndex = currentRightWeaponIndex + 1;
+            currentRightWeaponIndex++;
 
             if (currentRightWeaponIndex == 0 && weaponsInRightHandSlots[0] != null)
             {
@@ -69,7 +70,7 @@ namespace DS
 
         public void ChangeLeftWeapon()
         {
-            currentLeftWeaponIndex = currentLeftWeaponIndex + 1;
+            currentLeftWeaponIndex++;
 
             if (currentLeftWeaponIndex == 0 && weaponsInLeftHandSlots[0] != null)
             {

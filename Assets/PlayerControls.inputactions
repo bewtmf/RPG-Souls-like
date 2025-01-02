@@ -200,6 +200,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "CriticalAttack",
+                    "type": "Button",
+                    "id": "7af86545-4b5b-41f8-a667-1d6f87b7422b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "HeavyAttack",
                     "type": "Button",
                     "id": "4b6ff098-04bf-4bc8-ba56-b4a545253587",
@@ -281,7 +290,7 @@
                     "name": "",
                     "id": "9070b42f-aa93-43b6-8238-053e5e670654",
                     "path": "<Keyboard>/e",
-                    "interactions": "",
+                    "interactions": "Tap",
                     "processors": "",
                     "groups": "",
                     "action": "LightAttack",
@@ -292,7 +301,7 @@
                     "name": "",
                     "id": "1c78242c-1e50-4b8b-a3ff-bdc33c5a5ad2",
                     "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
+                    "interactions": "Tap",
                     "processors": "",
                     "groups": "",
                     "action": "LightAttack",
@@ -428,6 +437,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Y",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "aca89abb-2fa3-4bff-b0fd-48093f5d2fc5",
+                    "path": "<Keyboard>/e",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CriticalAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "60610c03-fb9f-4ae3-9031-57b945235a10",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CriticalAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6db0869c-ab2f-4687-b053-60ce92fae8a2",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CriticalAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
